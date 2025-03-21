@@ -40,7 +40,8 @@ func Init() *app {
 }
 
 func (a *app) Start() {
-	a.telegram.Start()
+	err := a.telegram.Start()
+	WriteErrorAndExit(err, a.logger)
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)

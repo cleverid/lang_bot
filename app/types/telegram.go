@@ -1,6 +1,6 @@
 package types
 
 type ITelegram interface {
-	Start()
+	Start() error
 	Stop() error
 }

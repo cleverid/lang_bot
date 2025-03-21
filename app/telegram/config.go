@@ -5,7 +5,9 @@ import (
 )
 
 type TelegramConfig struct {
-	Token string `config:"required"`
+	Token   string `config:"required"`
+	Timeout int    `config:"default=60"`
+	Debug   bool   `config:""`
 }
 
 func GetConfig() (config TelegramConfig, err error) {
