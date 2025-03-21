@@ -24,7 +24,9 @@ type app struct {
 func Init() *app {
 	utils.LoadEnv(".env")
 	app := &app{}
+
 	logger := log.New(log.GetConfig())
+	app.logger = logger
 
 	configs, err := getConfigs()
 	WriteErrorAndExit(err, logger)
@@ -33,8 +35,6 @@ func Init() *app {
 	telegram, err := telegram.New(configs.Telegram, logger)
 	WriteErrorAndExit(err, logger)
 	app.telegram = telegram
-
-	app.logger = logger
 
 	return app
 }
