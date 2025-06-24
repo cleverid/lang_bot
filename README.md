@@ -10,5 +10,8 @@
 ### GRPC
 
 ```bash
-protoc --proto_path=./contracts --go_out=./contracts --go_opt=paths=source_relative --go-grpc_out=./contracts --go-grpc_opt=paths=source_relative ./contracts/user.proto
+protoc --proto_path=./contracts \
+    --go_out=./contracts --go_opt=paths=source_relative \
+    --go-grpc_out=./contracts --go-grpc_opt=paths=source_relative \
+    ./contracts/user.proto
 ```
