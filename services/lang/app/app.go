@@ -6,11 +6,10 @@ import (
 	"os/signal"
 	"syscall"
 
-	. "lb/app/errors"
-	"lb/app/telegram"
-	"lb/app/types"
-	"lb/app/utils"
-	"lb/app/utils/log"
+	. "lb/services/lang/app/errors"
+	"lb/services/lang/app/telegram"
+	"lb/services/lang/app/types"
+	"lb/services/lang/app/utils/log"
 
 	loggergo "github.com/nextmillenniummedia/logger-go"
 )
@@ -22,7 +21,6 @@ type app struct {
 }
 
 func Init() *app {
-	utils.LoadEnv(".env")
 	app := &app{}
 
 	logger := log.New(log.GetConfig())

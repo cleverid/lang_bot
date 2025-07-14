@@ -11,8 +11,10 @@ down: infra-down ## Down
 stop: infra-stop ## Stop
 ps: ## View all containers
 	docker ps | grep lang-bot-
-dev: ## Develop mod
-	go run cmd/server/server.go 
+dev-lang: ## Develop mod for lang service
+	go run cmd/lang/lang.go 
+dev-user: ## Develop mod for lang service
+	go run cmd/user/user.go 
 fmt: ## Format
 	go fmt ./... 
 test: ## Test
