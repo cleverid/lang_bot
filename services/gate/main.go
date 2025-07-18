@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"lb/services/lang/app"
-	"lb/utils"
+	"gate/app"
+	"gate/utils"
 )
 
 func main() {

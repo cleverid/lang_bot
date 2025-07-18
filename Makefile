@@ -11,14 +11,21 @@ down: infra-down ## Down
 stop: infra-stop ## Stop
 ps: ## View all containers
 	docker ps | grep lang-bot-
-dev-lang: ## Develop mod for lang service
-	go run cmd/lang/lang.go 
-dev-user: ## Develop mod for lang service
-	go run cmd/user/user.go 
-fmt: ## Format
-	go fmt ./... 
+fmt: fmt-gate fmt-user ## Format
 test: ## Test
 	go test ./... 
+gen: ## Geneate 
+	./grpc.sh
+
+fmt-gate: ## Format gate
+	cd services/gate && go fmt ./...
+fmt-user: ## Format user
+	cd services/user && go fmt ./...
+ 
+dev-gate: ## Develop mod for gate service
+	cd services/gate && go run main.go 
+dev-user: ## Develop mod for user service
+	cd services/user && go run main.go 
 
 infra-up: redis-up postgres-up ## Infra. Up
 infra-down: redis-down postgres-down ## Infra. Down

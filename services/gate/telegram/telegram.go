@@ -1,8 +1,8 @@
 package telegram
 
 import (
-	"lb/services/lang/app/types"
-	"lb/services/lang/app/utils/log"
+	"gate/types"
+	"gate/utils/log"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	loggergo "github.com/nextmillenniummedia/logger-go"

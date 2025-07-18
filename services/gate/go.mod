@@ -1,4 +1,4 @@
-module lb
+module gate
 
 go 1.23.4
 

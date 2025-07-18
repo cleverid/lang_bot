@@ -3,8 +3,8 @@ package app
 import (
 	"errors"
 	"fmt"
-	"lb/services/lang/app/telegram"
-	"lb/services/lang/app/utils/log"
+	"gate/telegram"
+	"gate/utils/log"
 )
 
 type Configs struct {

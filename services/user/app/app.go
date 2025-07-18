@@ -2,7 +2,7 @@ package app
 
 import (
 	"context"
-	"lb/contracts"
+	"user/contracts"
 )
 
 type app struct {

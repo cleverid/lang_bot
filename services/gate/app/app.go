@@ -6,10 +6,10 @@ import (
 	"os/signal"
 	"syscall"
 
-	. "lb/services/lang/app/errors"
-	"lb/services/lang/app/telegram"
-	"lb/services/lang/app/types"
-	"lb/services/lang/app/utils/log"
+	. "gate/errors"
+	"gate/telegram"
+	"gate/types"
+	"gate/utils/log"
 
 	loggergo "github.com/nextmillenniummedia/logger-go"
 )

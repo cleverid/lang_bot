@@ -2,9 +2,9 @@ package utils
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
-	"fmt"
 
 	"github.com/joho/godotenv"
 )
