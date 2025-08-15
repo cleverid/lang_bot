@@ -25,5 +25,6 @@ func (a *app) AddUser(ctx context.Context, request *contracts.AddUserRequest) (*
 		},
 	}
 	err := errors.New("test error")
+    err = nil
 	return &response, err
 }
