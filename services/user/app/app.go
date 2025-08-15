@@ -2,6 +2,8 @@ package app
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"user/contracts"
 )
 
@@ -13,6 +15,15 @@ func New() contracts.UserServer {
 	return &app{}
 }
 
-func (a *app) AddUser(context.Context, *contracts.AddUserRequest) (*contracts.AddUserResponse, error) {
-	return nil, nil
+func (a *app) AddUser(ctx context.Context, request *contracts.AddUserRequest) (*contracts.AddUserResponse, error) {
+	fmt.Println(request)
+	response := contracts.AddUserResponse{
+		UserId: "user_id",
+		Name:   request.Name,
+		Address: &contracts.Address{
+			Street: "street",
+		},
+	}
+	err := errors.New("test error")
+	return &response, err
 }

@@ -5,8 +5,8 @@ import (
 	"net"
 
 	"google.golang.org/grpc"
-	"user/contracts"
 	"user/app"
+	"user/contracts"
 )
 
 func main() {

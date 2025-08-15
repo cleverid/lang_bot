@@ -31,3 +31,16 @@ infra-up: redis-up postgres-up ## Infra. Up
 infra-down: redis-down postgres-down ## Infra. Down
 infra-stop: redis-stop postgres-stop ## Infra. Stop
 
+redis-up: # Redis. Up
+	echo "Redis up"
+redis-stop: # Redis. Stop
+	echo "Redis stop"
+redis-down: # Redis. Down
+	echo "Redis down"
+
+postgres-up: # Postgres. Up
+	echo "Postgres up"
+postgres-stop: # Postgres. Stop
+	echo "Postgres stop"
+postgres-down: # Postgres. Down
+	echo "Postgres down"
