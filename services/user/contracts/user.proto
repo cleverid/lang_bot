@@ -1,7 +1,10 @@
 syntax = "proto3";
 
-package contracts;
-option go_package = "github.com/clever_id/lang_bot/contracts/user;contracts";
+import "types.proto";
+
+package user;
+option go_package = "github.com/clever_id/lang_bot/contracts/user;user";
+
 
 service User {
     rpc AddUser(AddUserRequest) returns (AddUserResponse) {}
@@ -18,8 +21,3 @@ message AddUserResponse {
     optional Address address = 4;
 }
 
-message Address {
-    string home = 1;
-    string street = 2;
-    string city = 3;
-}

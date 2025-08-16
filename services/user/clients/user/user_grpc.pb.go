@@ -4,7 +4,7 @@
 // - protoc             v6.31.1
 // source: user.proto
 
-package contracts
+package user
 
 import (
 	context "context"
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	User_AddUser_FullMethodName = "/contracts.User/AddUser"
+	User_AddUser_FullMethodName = "/user.User/AddUser"
 )
 
 // UserClient is the client API for User service.
@@ -108,7 +108,7 @@ func _User_AddUser_Handler(srv interface{}, ctx context.Context, dec func(interf
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var User_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "contracts.User",
+	ServiceName: "user.User",
 	HandlerType: (*UserServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

@@ -8,7 +8,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	user "gate/clients/user"
+	"gate/clients/user"
 	. "gate/errors"
 	"gate/telegram"
 	"gate/types"

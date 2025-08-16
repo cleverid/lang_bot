@@ -6,7 +6,7 @@ import (
 
 	"google.golang.org/grpc"
 	"user/app"
-	"user/contracts"
+	"user/clients/user"
 )
 
 func main() {
@@ -16,7 +16,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	contracts.RegisterUserServer(s, app.New())
+	user.RegisterUserServer(s, app.New())
 
 	err = s.Serve(lis)
 	if err != nil {

@@ -4,27 +4,27 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"user/contracts"
+	"user/clients/user"
 )
 
 type app struct {
-	contracts.UnimplementedUserServer
+	user.UnimplementedUserServer
 }
 
-func New() contracts.UserServer {
+func New() user.UserServer {
 	return &app{}
 }
 
-func (a *app) AddUser(ctx context.Context, request *contracts.AddUserRequest) (*contracts.AddUserResponse, error) {
+func (a *app) AddUser(ctx context.Context, request *user.AddUserRequest) (*user.AddUserResponse, error) {
 	fmt.Println(request)
-	response := contracts.AddUserResponse{
+	response := user.AddUserResponse{
 		UserId: "user_id",
 		Name:   request.Name,
-		Address: &contracts.Address{
+		Address: &user.Address{
 			Street: "street",
 		},
 	}
 	err := errors.New("test error")
-    err = nil
+	err = nil
 	return &response, err
 }

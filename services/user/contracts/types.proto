@@ -1,0 +1,9 @@
+syntax = "proto3";
+package user;
+option go_package = "github.com/clever_id/lang_bot/contracts/user;user";
+
+message Address {
+    string home = 1;
+    string street = 2;
+    string city = 3;
+}
