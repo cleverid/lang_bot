@@ -1,6 +1,7 @@
 package grpc
 
 type Service struct {
+	Name      string   `json:"name"`
 	Clients   []Client `json:"clients,omitempty"`
 	Contracts Contract
 }
