@@ -1,5 +1,7 @@
 {
-    clients: [{
-        service: "user"
-    }]
+    "clients": [
+        {
+             "service": "user"
+        }
+    ]
 }

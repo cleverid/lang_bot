@@ -11,12 +11,14 @@ down: infra-down ## Down
 stop: infra-stop ## Stop
 ps: ## View all containers
 	docker ps | grep lang-bot-
-fmt: fmt-gate fmt-user ## Format
+fmt: fmt-cmd fmt-gate fmt-user ## Format
 test: ## Test
 	go test ./... 
 gen: ## Geneate 
 	./grpc.sh
 
+fmt-cmd: ## Format cmd
+	cd cmd && go fmt ./...
 fmt-gate: ## Format gate
 	cd services/gate && go fmt ./...
 fmt-user: ## Format user
