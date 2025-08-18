@@ -21,18 +21,20 @@ func Generate(servicesPath string, services []Service) {
 			if err != nil {
 				err = fmt.Errorf("Dir for GRPC don`t created and has error: %w", err)
 				fmt.Println(err)
+				continue
 			}
-			comGRPC := command.New("protoc")
-			comGRPC.AddShortParam("I", pathSource)
-			comGRPC.AddFullParam("go_out", pathClient)
-			comGRPC.AddFullParam("go_opt=paths", "source_relative")
-			comGRPC.AddFullParam("go-grpc_out", pathClient)
-			comGRPC.AddFullParam("go-grpc_opt=paths", "source_relative")
-			comGRPC.Argument(pathSourceMask)
+			comGRPC := command.New("protoc").
+				AddShortParam("I", pathSource).
+				AddFullParam("go_out", pathClient).
+				AddFullParam("go_opt=paths", "source_relative").
+				AddFullParam("go-grpc_out", pathClient).
+				AddFullParam("go-grpc_opt=paths", "source_relative").
+				Argument(pathSourceMask)
 			_, err = exec.Command("bash", "-c", comGRPC.Build()).CombinedOutput()
 			if err != nil {
 				err = fmt.Errorf("Generation GRPC has error: %w", err)
 				fmt.Println(err)
+				continue
 			}
 			fmt.Printf("For service '%s' was generated GRPC from service '%s'\n", service.Name, dep)
 		}
