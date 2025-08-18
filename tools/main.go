@@ -1,10 +1,10 @@
 package main
 
 import (
-	"cmd/grpc"
-	"cmd/services"
 	"fmt"
 	"log"
+	"tools/grpc"
+	"tools/services"
 )
 
 const SERVICES_PATH = "../services/"

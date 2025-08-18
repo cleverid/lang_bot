@@ -1,6 +1,6 @@
 syntax = "proto3";
 package user;
-option go_package = "github.com/clever_id/lang_bot/contracts/user;user";
+// option go_package = "github.com/clever_id/lang_bot/contracts/user;user";
 
 import "types.proto";
 

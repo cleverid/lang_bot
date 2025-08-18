@@ -1,19 +1,22 @@
 package grpc
 
 import (
-	"cmd/command"
-	. "cmd/types"
-	"cmd/utils"
 	"fmt"
 	"os/exec"
+	"strings"
+	"tools/command"
+	. "tools/types"
+	"tools/utils"
 )
 
 func Generate(servicesPath string, services []Service) {
+	servicesPath = strings.TrimRight(servicesPath, "/")
 	servicesMap := makeServicesMap(services)
 	servicesDeps := makeServicesDeps(services)
 	for serviceName, deps := range servicesDeps {
 		service := servicesMap[serviceName]
 		for _, dep := range deps {
+			serviceDep := servicesMap[dep]
 			pathSource := fmt.Sprintf("%s/%s/contracts/", servicesPath, dep)
 			pathClient := fmt.Sprintf("%s/%s/clients/%s", servicesPath, service.Name, dep)
 			pathSourceMask := fmt.Sprintf("%s/%s/contracts//*.proto", servicesPath, dep)
@@ -30,9 +33,18 @@ func Generate(servicesPath string, services []Service) {
 				AddFullParam("go-grpc_out", pathClient).
 				AddFullParam("go-grpc_opt=paths", "source_relative").
 				Argument(pathSourceMask)
-			_, err = exec.Command("bash", "-c", comGRPC.Build()).CombinedOutput()
+			// add 'option go_package'
+			for _, pathGRPC := range serviceDep.Contracts.GRPC.Files {
+				fileGRPC := strings.ReplaceAll(pathGRPC, pathSource, "")
+				name := fmt.Sprintf("go_opt=M%s", fileGRPC)
+				value := fmt.Sprintf("%s/clients/%s", dep, dep)
+				nameGRPC := fmt.Sprintf("go-grpc_opt=M%s", fileGRPC)
+				comGRPC.AddFullParam(name, value)
+				comGRPC.AddFullParam(nameGRPC, value)
+			}
+			result, err := exec.Command("bash", "-c", comGRPC.Build()).CombinedOutput()
 			if err != nil {
-				err = fmt.Errorf("Generation GRPC has error: %w", err)
+				err = fmt.Errorf("Generation GRPC has error: %w, %s", err, result)
 				fmt.Println(err)
 				continue
 			}

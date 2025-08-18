@@ -1,11 +1,12 @@
 package services
 
 import (
-	. "cmd/types"
-	"cmd/utils"
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
+	. "tools/types"
+	"tools/utils"
 )
 
 func LoadServices(servicesPath string) (services []Service, err error) {
@@ -29,6 +30,7 @@ func LoadServices(servicesPath string) (services []Service, err error) {
 }
 
 func loadService(servicesPath string, dir os.DirEntry) (service *Service, err error) {
+	servicesPath = strings.TrimRight(servicesPath, "/")
 	pathServiceJSON := fmt.Sprintf("%s/%s/service.json", servicesPath, dir.Name())
 	pathContracts := fmt.Sprintf("%s/%s/contracts/", servicesPath, dir.Name())
 	service, err = loadServiceJSON(pathServiceJSON)
