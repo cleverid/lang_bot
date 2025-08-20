@@ -2,11 +2,14 @@ package grpc
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"strings"
+	"text/template"
 	"tools/command"
 	. "tools/types"
 	"tools/utils"
+	"unicode"
 )
 
 func Generate(servicesPath string, services []Service) {
@@ -49,8 +52,41 @@ func Generate(servicesPath string, services []Service) {
 				continue
 			}
 			fmt.Printf("For service '%s' was generated GRPC from service '%s'\n", service.Name, dep)
+			err = generateTemplate(serviceDep.Name, "../templates/go_config.go.tmpl", pathClient)
+			if err != nil {
+				err = fmt.Errorf("Generation template has error: %w", err)
+				fmt.Println(err)
+				continue
+			}
+			fmt.Printf("For service '%s' was generated config from service '%s'\n", service.Name, dep)
 		}
 	}
+}
+
+func generateTemplate(service string, source string, target string) error {
+	target = strings.TrimRight(target, "/")
+	data := struct {
+		Service      string
+		ServiceCamel string
+		ServiceUpper string
+	}{
+		Service:      service,
+		ServiceCamel: UpperFirst(service),
+		ServiceUpper: strings.ToUpper(service),
+	}
+	tmpl, err := template.ParseFiles(source)
+	if err != nil {
+		return err
+	}
+	targetFile := target + "/" + service + "_config.go"
+	fmt.Println(targetFile)
+	outputFile, err := os.Create(targetFile)
+	if err != nil {
+		return err
+	}
+	defer outputFile.Close()
+	err = tmpl.Execute(outputFile, data)
+	return err
 }
 
 func makeServicesMap(services []Service) map[string]Service {
@@ -75,4 +111,14 @@ func makeServicesDeps(services []Service) map[string][]string {
 		}
 	}
 	return servicesDeps
+}
+
+// UpperFirst capitalizes the first letter of a string.
+func UpperFirst(s string) string {
+	if s == "" {
+		return ""
+	}
+	r := []rune(s)
+	r[0] = unicode.ToUpper(r[0])
+	return string(r)
 }

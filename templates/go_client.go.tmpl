@@ -1,10 +1,32 @@
 package {{.Service}}
 
-type {{.Service}}Client struct {
-    
+import(
+	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc"
+)
+
+type Client struct {
+    config Config
+    Grpc
 }
 
-func NewClient(config ClientConfig) *{{.Service}}Client {
-	client := &{{.Service}}Client{}
-	return client
+func NewClient(config ClientConfig) (*Client, error) {
+	client := &Client{
+        config: config
+    }
+	return client, nil
+}
+
+func (c *Client) Start() error {
+	var opts []grpc.DialOption
+	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	connection, err := grpc.NewClient(c.config.Host, opts...)
+    if err != nil {
+        return err
+    }
+	c.Grpc = {{.Service}}.New{{.ServiceCamel}}Client(connection)
+}
+
+func (c *Client) Stop() error {
+    
 }
