@@ -1,4 +1,4 @@
-package {{.Service}}
+package user
 
 import(
 	"google.golang.org/grpc/credentials/insecure"
@@ -6,7 +6,7 @@ import(
 )
 
 type Client struct {
-    {{.ServiceCamel}}Client
+    UserClient
     config ClientConfig
     connection *grpc.ClientConn
     opts []grpc.DialOption
@@ -27,7 +27,7 @@ func (c *Client) Start() (err error) {
     if err != nil {
         return err
     }
-	c.{{.ServiceCamel}}Client = New{{.ServiceCamel}}Client(c.connection)
+	c.UserClient = NewUserClient(c.connection)
     return nil
 }
 

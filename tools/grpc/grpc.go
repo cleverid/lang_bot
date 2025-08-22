@@ -52,18 +52,25 @@ func Generate(servicesPath string, services []Service) {
 				continue
 			}
 			fmt.Printf("For service '%s' was generated GRPC from service '%s'\n", service.Name, dep)
-			err = generateTemplate(serviceDep.Name, "../templates/go_config.go.tmpl", pathClient)
+			err = generateTemplate("../templates/go_config.go.tmpl", serviceDep.Name, pathClient, "config")
 			if err != nil {
 				err = fmt.Errorf("Generation template has error: %w", err)
 				fmt.Println(err)
 				continue
 			}
-			fmt.Printf("For service '%s' was generated config from service '%s'\n", service.Name, dep)
+			fmt.Printf("For service '%s' was generated config to service '%s'\n", service.Name, dep)
+			err = generateTemplate("../templates/go_client.go.tmpl", serviceDep.Name, pathClient, "client")
+			if err != nil {
+				err = fmt.Errorf("Generation template has error: %w", err)
+				fmt.Println(err)
+				continue
+			}
+			fmt.Printf("For service '%s' was generated client to service '%s'\n", service.Name, dep)
 		}
 	}
 }
 
-func generateTemplate(service string, source string, target string) error {
+func generateTemplate(templatePath, service, target, targetName string) error {
 	target = strings.TrimRight(target, "/")
 	data := struct {
 		Service      string
@@ -74,12 +81,11 @@ func generateTemplate(service string, source string, target string) error {
 		ServiceCamel: UpperFirst(service),
 		ServiceUpper: strings.ToUpper(service),
 	}
-	tmpl, err := template.ParseFiles(source)
+	tmpl, err := template.ParseFiles(templatePath)
 	if err != nil {
 		return err
 	}
-	targetFile := target + "/" + service + "_config.go"
-	fmt.Println(targetFile)
+	targetFile := fmt.Sprintf("%s/%s_%s.go", target, service, targetName)
 	outputFile, err := os.Create(targetFile)
 	if err != nil {
 		return err

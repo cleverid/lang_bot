@@ -4,6 +4,7 @@ go 1.24.5
 
 require (
 	github.com/joho/godotenv v1.5.1
+	github.com/nextmillenniummedia/config-go v1.0.13
 	google.golang.org/grpc v1.73.0
 	google.golang.org/protobuf v1.36.6
 )

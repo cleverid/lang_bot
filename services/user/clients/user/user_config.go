@@ -5,7 +5,7 @@ import (
 )
 
 type ClientConfig struct {
-	Host string `config:"required,format=url"`
+	Host   string `config:"required,format=url"`
 }
 
 func GetConfig() (config ClientConfig, err error) {
